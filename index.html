@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ParaIQ</title>
+<meta name="description" content="ParaIQ is a paraplanning co-pilot that reads client documents, finds the gaps and drafts the Statement of Advice, running on your own machine.">
+<meta name="theme-color" content="#0b0e0d">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ParaIQ">
+<meta property="og:description" content="ParaIQ is a paraplanning co-pilot that reads client documents, finds the gaps and drafts the Statement of Advice, running on your own machine.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230b0e0d'/%3E%3Cpath fill='%236dd3a0' d='M4 3h6v2H4zM4 5h2v8H4zM10 5h2v3h-2zM4 8h6v2H4z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Pixelify+Sans:wght@400;500;600&family=Bricolage+Grotesque:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="hdr"><a href="#" aria-label="ParaIQ, back to the home page">ParaIQ</a></div>
+<div class="grid" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="dot" id="dot" aria-hidden="true"></div>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="intro" id="intro" role="dialog" aria-label="Introduction">
+  <button class="in-snd" id="inSnd" type="button" hidden>Sound on</button>
+  <div class="in-pane" id="inBegin">
+    <canvas id="lcv" aria-hidden="true"></canvas>
+    <p class="in-line">A short thought before you begin.</p>
+    <button class="in-btn" id="inGo" type="button">Begin</button>
+    <button class="in-skip" id="inSkipB" type="button">Skip intro</button>
+  </div>
+  <div class="in-pane" id="inPlay" hidden>
+    <p class="in-top" id="inTop" aria-live="polite"></p>
+    <div class="in-vid">
+      <video id="v1" src="assets/video/clip1.mp4" playsinline muted preload="auto"></video>
+      <video id="v2" src="assets/video/clip2.mp4" playsinline muted preload="auto"></video>
+      <i class="in-prog" id="inProg"></i>
+    </div>
+    <p class="in-bot" id="inBot"></p>
+    <button class="in-skip" id="inSkip" type="button">Skip intro</button>
+  </div>
+  <div class="in-pane in-end" id="inEnd" hidden>
+    <p class="in-line">The future is a collaboration.<br>Let&#8217;s make it a careful one.</p>
+    <p class="in-p">ParaIQ is one product of our wider AI consultancy. For advice, guidance or building with AI, on your terms, we're here.</p>
+    <a class="in-btn" id="inCta" href="mailto:paraiq.app@gmail.com?subject=Connecting%20about%20AI">Connect with us</a>
+    <p class="in-mail"><span id="inMailText">paraiq.app@gmail.com</span><button class="in-copy" id="inCopy" type="button">Copy</button></p>
+    <button class="in-skip" id="inCont" type="button">Continue to ParaIQ</button>
+  </div>
+</div>
+
+<div id="home">
+
+<!-- 1 · Hero and the four capabilities -->
+<section class="stage stageA" id="stageA" aria-label="What ParaIQ is and what it does">
+  <div class="pin band-ink">
+    <canvas class="wipe" id="wipe" aria-hidden="true"></canvas>
+    <div class="tiles" id="tiles" aria-hidden="true"><div class="shadow" id="shadow"></div><div class="card3d" id="card3d"></div></div>
+
+    <div class="slide slide-hero gut on-ink" id="s0">
+      <h1 class="t-display"><span class="scr">Documents in.
+Advice out.</span></h1>
+      <p class="p">The paraplanning co-pilot that does the groundwork, so advisers and paraplanners can do the thinking.</p>
+    </div>
+    <div class="slide gut on-paper" data-a=".22" data-b=".40">
+      <h2 class="t-display"><span class="scr">Every document,
+read into one picture</span></h2>
+      <p class="p">Upload Word, Excel, PDF and images together. ParaIQ reads them into a structured client picture, each fact linked to its page.</p>
+      <button class="btn" type="button" id="goPrivacy">How your data is handled</button>
+    </div>
+    <div class="slide gut on-paper" data-a=".42" data-b=".60">
+      <h2 class="t-display"><span class="scr">Gaps become
+questions</span></h2>
+      <p class="p">Conflicts are shown, never averaged away. Missing information becomes a drafted question for the client.</p>
+    </div>
+    <div class="slide gut on-paper" data-a=".62" data-b=".80">
+      <h2 class="t-display"><span class="scr">A draft you
+can check</span></h2>
+      <p class="p">The Statement of Advice arrives with an issues list and a trace of what each section rests on. You review, refine and decide.</p>
+    </div>
+    <div class="slide gut on-paper" data-a=".82" data-b="1.1">
+      <h2 class="t-display"><span class="scr">Ask Orin
+anything</span></h2>
+      <p class="p">Orin is the in-app assistant. Ask about a case, a document or a draft in plain language.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · How it works -->
+<section class="stage stageC" id="stageC" aria-label="How ParaIQ works">
+  <div class="pin band-paper">
+    <div class="cslide gut on-paper">
+      <p class="eyebrow">How it works · 1 of 5 · Upload</p>
+      <h2 class="t-display"><span class="scr">Drop in the
+whole client file</span></h2>
+      <p class="p">Word, Excel, PDF and images, together.</p>
+    </div>
+    <div class="cslide gut on-paper">
+      <p class="eyebrow">How it works · 2 of 5 · Prepare</p>
+      <h2 class="t-display"><span class="scr">Every file made
+ready to read</span></h2>
+      <p class="p">Files are sorted and tidied, so nothing is missed.</p>
+    </div>
+    <div class="cslide gut on-paper">
+      <p class="eyebrow">How it works · 3 of 5 · Understand</p>
+      <h2 class="t-display"><span class="scr">Read into one
+client picture</span></h2>
+      <p class="p">Every fact is linked to its document and page. Typical run: 5–8 minutes.</p>
+    </div>
+    <div class="cslide gut on-paper">
+      <p class="eyebrow">How it works · 4 of 5 · Review</p>
+      <h2 class="t-display"><span class="scr">Gaps and conflicts,
+found for you</span></h2>
+      <p class="p">Conflicts are shown, never averaged. Missing items become questions. Typical run: 5–9 minutes.</p>
+    </div>
+    <div class="cslide gut on-paper">
+      <p class="eyebrow">How it works · 5 of 5 · Draft</p>
+      <h2 class="t-display"><span class="scr">A Statement of Advice
+ready to check</span></h2>
+      <p class="p">Drafted with an issues list. You review, refine and decide. Typical run: 4–9 minutes.</p>
+    </div>
+
+    <div class="hw" id="hw" aria-hidden="true">
+      <div class="win">
+        <div class="bar"><i></i><i></i><i></i><span>http://office-pc:8000 · Sample case</span></div>
+        <div class="hbody">
+          <div class="steps" id="hsteps"><span>Upload</span><span>Prepare</span><span>Understand</span><span>Review</span><span>Draft</span></div>
+          <div class="hpanes">
+            <div class="pane">
+              <div class="ph"><strong>Upload</strong><em>Word · Excel · PDF · images</em></div>
+              <div class="drop rv"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 11l7-7 7 7"/></svg><span>Drop client files</span></div>
+              <div class="fl rv"><u>PDF</u><span>Fact find</span><em>2 pages</em></div>
+              <div class="fl rv"><u>PDF</u><span>Tax return</span><em>3 pages</em></div>
+              <div class="fl rv"><u>XLS</u><span>Super statement</span><em>4 pages</em></div>
+              <div class="fl rv opt"><u>DOC</u><span>Insurance schedule</span><em>2 pages</em></div>
+            </div>
+            <div class="pane">
+              <div class="ph"><strong>Prepare</strong><em>Made ready to read</em></div>
+              <div class="pr rv"><span>Fact find</span><div class="pb"><i></i></div><em>Ready</em></div>
+              <div class="pr rv"><span>Tax return</span><div class="pb"><i></i></div><em>Ready</em></div>
+              <div class="pr rv"><span>Super statement</span><div class="pb"><i></i></div><em>Ready</em></div>
+              <div class="pr rv opt"><span>Insurance schedule</span><div class="pb"><i></i></div><em>Ready</em></div>
+            </div>
+            <div class="pane">
+              <div class="ph"><strong>Client picture</strong><em>Typical run 5–8 min</em></div>
+              <div class="fa rv"><small>Dependants</small><b>Two children</b><code>Fact find · p.2</code></div>
+              <div class="fa rv"><small>Income · fact find</small><b>A$90,000</b><code>Fact find · p.3</code></div>
+              <div class="fa rv"><small>Income · tax return</small><b>A$96,000</b><code>Tax return · p.1</code></div>
+              <div class="fa rv opt"><small>Super balance</small><b>A$142,300</b><code>Super stmt · p.2</code></div>
+            </div>
+            <div class="pane">
+              <div class="ph"><strong>Review</strong><em>Typical run 5–9 min</em></div>
+              <div class="fa cf rv"><small>Income · conflict shown</small><b>A$90,000 vs A$96,000</b><code>2 sources</code></div>
+              <div class="fa gp rv"><small>Insurance schedule missing</small><b>Query drafted for the client</b><code>Query</code></div>
+              <div class="fq rv opt">“Please send the insurance policy schedule.”</div>
+            </div>
+            <div class="pane">
+              <div class="ph"><strong>Statement of Advice</strong><em>Typical run 4–9 min</em></div>
+              <div class="sd">
+                <div class="doc2 rv"><b>Statement of Advice</b><i class="h"></i><i style="width:96%"></i><i style="width:88%"></i><i style="width:92%"></i><i class="h"></i><i style="width:84%"></i><i style="width:94%"></i><i style="width:60%"></i></div>
+                <div class="iss rv"><small>Issues list</small><span>Income conflict</span><span>Insurance schedule requested</span><span class="g">Sources linked</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="edge" data-top="#f5f6f4" data-bot="#0b0e0d" aria-hidden="true"><canvas></canvas></div>
+
+<!-- 3 · Privacy -->
+<section class="stage stageB" id="stageB" aria-label="Privacy and data">
+  <div class="pin band-ink">
+    <div class="bslide gut on-ink" id="b1">
+      <p class="eyebrow">Your data stays on your machine</p>
+      <h2 class="t-display"><span class="scr">Runs on your PC
+Zero data retention
+Usage counts only</span></h2>
+      <p class="p">ParaIQ runs on one PC in your office. Documents, cases, drafts and backups stay there.</p>
+    </div>
+    <div class="bslide gut on-ink" id="b2">
+      <p class="eyebrow">Local machine hosting</p>
+      <h2 class="t-display"><span class="scr">One PC.
+The whole office.</span></h2>
+      <p class="p">Colleagues open ParaIQ in their browser over your office network. Nothing to install on their PCs.</p>
+    </div>
+    <div class="bslide gut on-ink" id="b3">
+      <p class="eyebrow">Zero data retention</p>
+      <h2 class="t-display"><span class="scr">Sent. Processed.
+Returned. Forgotten.</span></h2>
+      <p class="p">Only the text a task needs goes to a zero-retention AI provider. The result comes back and nothing is kept.</p>
+    </div>
+
+    <div class="dev" id="dev" aria-hidden="true">
+      <div class="devbox">
+        <div class="win win-back" id="winL"><div class="bar"><i></i><i></i><i></i><span>http://office-pc:8000</span></div><div class="who">Adviser</div></div>
+        <div class="win win-back" id="winR"><div class="bar"><i></i><i></i><i></i><span>http://office-pc:8000</span></div><div class="who">Paraplanner</div></div>
+        <div class="win win-main">
+          <div class="bar"><i></i><i></i><i></i><span>http://office-pc:8000</span></div>
+          <div class="app">
+            <aside><b id="sideOrin"></b><span>Dashboard</span><span class="on">Cases</span><span>Chat</span><span>Backups</span></aside>
+            <div class="main">
+              <div class="mh"><strong>Sample case · 2026</strong><em>Sample data</em></div>
+              <div class="steps"><span class="ok">Upload</span><span class="ok">Prepare</span><span class="now">Understand</span><span>Review</span><span>Draft</span></div>
+              <div class="rows">
+                <div><small>Dependants</small><b>Two children</b><code>Fact find · p.2</code></div>
+                <div><small>Income</small><b>A$96,000</b><code>Tax return · p.1</code></div>
+                <div><small>Super balance</small><b>A$142,300</b><code>Super stmt · p.2</code></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strip" id="strip" aria-hidden="true">
+      <div class="ostep"><span class="o"></span><b>Sent</b><small>Only the text a task needs</small></div>
+      <div class="ostep"><span class="o"></span><b>Processed</b><small>On a zero-retention provider</small></div>
+      <div class="ostep"><span class="o"></span><b>Returned</b><small>The result comes back to you</small></div>
+      <div class="ostep"><span class="o"></span><b class="f">Forgotten</b><small>Nothing stored, nothing trained on</small></div>
+    </div>
+    <p class="note gut" id="bnote">ParaIQ receives usage counts only. Never documents, client names or content.</p>
+  </div>
+</section>
+
+<!-- 4 · Try it -->
+<section class="try gut" id="try" aria-label="Try it yourself">
+  <div class="col">
+    <p class="eyebrow" style="color:var(--mute-ink)">Try it yourself</p>
+    <p class="step" id="tstep">1/2</p>
+    <h2 class="t-display" id="ttitle">Pick documents</h2>
+    <div class="try__box" id="tbox">
+      <div id="tpick">
+        <h3>Sample documents</h3>
+        <label class="dr" for="d-fact"><input type="checkbox" id="d-fact" value="fact" checked><span>Fact find</span><em>2 pages</em></label>
+        <label class="dr" for="d-tax"><input type="checkbox" id="d-tax" value="tax" checked><span>Tax return</span><em>3 pages</em></label>
+        <label class="dr" for="d-super"><input type="checkbox" id="d-super" value="super" checked><span>Super statement</span><em>4 pages</em></label>
+        <label class="dr" for="d-ins"><input type="checkbox" id="d-ins" value="ins"><span>Insurance schedule</span><em>2 pages</em></label>
+        <label class="dr" for="d-loan"><input type="checkbox" id="d-loan" value="loan"><span>Loan statement</span><em>2 pages</em></label>
+        <button class="btn-w" type="button" id="tgo">Read documents</button>
+        <div class="prog" id="tprog" hidden><i id="tbar"></i></div>
+        <p class="fine">Example data. Nothing is uploaded or sent anywhere.</p>
+      </div>
+      <div class="res" id="tres" hidden aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<div class="edge" data-top="#0b0e0d" data-bot="#f5f6f4" aria-hidden="true"><canvas></canvas></div>
+
+<!-- 5 · The business -->
+<section class="stage stageD" id="stageD" aria-label="How ParaIQ helps paraplanners and the business">
+  <div class="pin band-paper">
+    <div class="dcenter gut on-paper">
+      <div class="dbeat">
+        <p class="eyebrow">What it does for the business</p>
+        <h2 class="t-display"><span class="scr">Up to 70–80% of the work, done in under an hour</span></h2>
+        <p class="p">The groundwork is done for you, so the team can take on more of the thinking.</p>
+        <div class="cmp" id="cmp">
+          <div class="r"><span>By hand</span><div class="tr"><i style="--w:100%"></i></div><em>~3 days</em></div>
+          <div class="r"><span>ParaIQ</span><div class="tr"><i class="g" style="--w:2.5%"></i></div><em>&lt; 1 hour</em></div>
+          <small>Illustrative, not to scale</small>
+        </div>
+      </div>
+      <div class="dbeat">
+        <p class="eyebrow">Nothing taken on trust</p>
+        <h2 class="t-display"><span class="scr">Every figure shows its source</span></h2>
+        <div class="proof">
+          <div class="rr"><small>Super balance</small><b>A$142,300</b><code>Super stmt · p.2</code></div>
+          <div class="rr cf"><small>Conflict shown, not averaged</small><b>A$90,000 or A$96,000</b><code>2 sources</code></div>
+        </div>
+        <p class="p">Where documents disagree, you see both and decide.</p>
+      </div>
+      <div class="dbeat">
+        <p class="eyebrow">Built for a regulated practice</p>
+        <h2 class="t-display"><span class="scr">You stay in control</span></h2>
+        <ul class="ticks">
+          <li>Runs on your own PC</li>
+          <li>A backup before any delete</li>
+          <li>Stop any run, any time</li>
+          <li>Only usage counts reach ParaIQ</li>
+        </ul>
+      </div>
+      <div class="dbeat">
+        <div class="disc" id="disc"></div>
+        <h2 class="t-display"><span class="scr">Assistance, not replacement</span></h2>
+        <p class="p">Judgement and sign-off stay with the paraplanner. ParaIQ takes the groundwork.</p>
+      </div>
+    </div>
+    <div class="dcards" id="dcards">
+      <div class="dcard L"><div class="big">5–8 min</div><div class="txt">Reads a full client file into a sourced picture.</div><div class="lab">Extraction · typical run</div></div>
+      <div class="dcard R" style="--dx:-24px"><div class="big">5–9 min</div><div class="txt">Finds gaps and conflicts across the whole picture.</div><div class="lab">Review · typical run</div></div>
+      <div class="dcard L" style="--dx:30px"><div class="big">4–9 min</div><div class="txt">Drafts the full Statement of Advice with its issues list.</div><div class="lab">SoA drafting · typical run</div></div>
+      <div class="dcard R" style="--dx:10px"><div class="big">Seconds</div><div class="txt">Orin answers questions about a case or a draft.</div><div class="lab">Chat · typical</div></div>
+      <div class="dcard L" style="--dx:-14px"><div class="big">Any format</div><div class="txt">Word, Excel, PDF and images, read together.</div><div class="lab">Documents</div></div>
+      <div class="dcard R" style="--dx:-30px"><div class="big">Safe by default</div><div class="txt">A backup is taken before any delete. Any run can be stopped.</div><div class="lab">Safety</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Call to action -->
+<section class="cta band-paper" id="cta" aria-label="Request a demo">
+  <div class="cta__in gut on-paper">
+    <div class="cta__card" id="ctaCard"><canvas id="ctaCv" width="1200" height="800" aria-hidden="true"></canvas></div>
+    <h2 class="t-display">Paraplanning,<br>with a super-boost</h2>
+    <p class="p">Local-first. Zero-data-retention AI. Built for paraplanners.</p>
+    <div class="cta__btns">
+      <a class="btn btn-solid" href="mailto:paraiq.app@gmail.com?subject=ParaIQ%20demo%20request">Request a demo</a>
+      <a class="btn" href="#privacy">Read the privacy policy</a>
+    </div>
+    <p class="mail"><span id="mailText">paraiq.app@gmail.com</span><button class="copy" id="copyMail" type="button">Copy</button></p>
+    <p class="p" style="margin-top:26px">ParaIQ is one product of our wider AI consultancy. For advice or development, wherever AI is involved, connect with us.</p>
+  </div>
+</section>
+
+<div class="edge" data-top="#f5f6f4" data-bot="#0b0e0d" aria-hidden="true"><canvas></canvas></div>
+
+<footer class="foot gut">
+  <div class="foot__top">
+    <div><small>© 2026 Kahan Shah and Meet Patel. All rights reserved.</small><small>ParaIQ. Your data stays yours.</small></div>
+    <div class="foot__links"><a href="#privacy">Privacy</a><a href="#terms">Terms</a></div>
+  </div>
+  <canvas class="ghost" id="ghost" aria-hidden="true"></canvas>
+</footer>
+</div>
+
+<!-- Privacy policy -->
+<main class="doc" id="view-privacy" hidden>
+  <a class="back" href="#">← Back to ParaIQ</a>
+  <h1>Privacy policy</h1>
+  <p class="meta">Parts 6 and 7 of the ParaIQ Copyright and Privacy Policy. Effective from 22 September 2026. Last updated 19 October 2026.</p>
+
+  <h2>6. What we collect and why</h2>
+  <p>This privacy policy is made under the Information Technology Act, 2000, the rules under it (including the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011, for as long as they apply), and the Digital Personal Data Protection Act, 2023 and the rules under it, as and when each is in force. Terms such as "personal data", "Data Fiduciary", "Data Principal" and "processing" have the meanings given in the Digital Personal Data Protection Act, 2023 (the "DPDP Act").</p>
+  <p><strong>6.1 Who is responsible for what.</strong> For the personal data of your own clients that you enter into ParaIQ, you are the Data Fiduciary. You decide why and how it is used, and you must have a lawful ground and give any notice required before you put it in. To the extent the Owner or its service providers handle that data, they do so only on your behalf, only to provide ParaIQ and support to you, and only as this policy describes. For information about you and your staff, such as account, licence and usage details, the Owner is the Data Fiduciary.</p>
+  <p><strong>6.2 What we collect.</strong></p>
+  <div class="tw"><table>
+    <thead><tr><th>Category</th><th>What it includes</th><th>Why we need it</th></tr></thead>
+    <tbody>
+      <tr><td>Licence and contact details</td><td>Firm or individual name, contact person, email address, phone number, licence status and period</td><td>To grant, manage and support your licence and to contact you</td></tr>
+      <tr><td>Sign-in details</td><td>Usernames, display names, roles and team membership. Passwords are kept only in a protected, scrambled form that cannot be read back, even by us</td><td>To let the right people in and keep others out</td></tr>
+      <tr><td>Device and installation details</td><td>Computer name, operating system, software version, an installation identifier and a device identifier</td><td>To confirm that ParaIQ is used on licensed computers, to find and fix faults, and to keep it secure</td></tr>
+      <tr><td>Usage and performance information</td><td>Which feature was used, when, how long it took, whether it worked, a short reason if it did not, the amount of material handled, and anonymous user and team identifiers</td><td>To keep ParaIQ working, to understand how it is used, and to support you</td></tr>
+      <tr><td>Support information</td><td>What you send us when you ask for help, including messages, files and screenshots you choose to share</td><td>To look into and solve your problem</td></tr>
+      <tr><td>Information you supply for processing</td><td>Client information, records and documents that you enter or upload to use ParaIQ's features</td><td>To carry out the work you ask ParaIQ to do</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>6.3 What we do not collect.</strong> The usage and performance reports ParaIQ sends to us do not contain client names, case names, file names, the contents of documents or the text of messages.</p>
+  <p><strong>6.4 How we use information.</strong> We use information only to:</p>
+  <ul>
+    <li>provide, secure, support and maintain ParaIQ;</li>
+    <li>check and manage licences and prevent unlicensed use;</li>
+    <li>find and fix faults and keep ParaIQ reliable;</li>
+    <li>send you notices about your licence, updates, security and changes to this policy;</li>
+    <li>protect and enforce the Owner's rights, including under Parts 2 to 5; and</li>
+    <li>meet our legal obligations and answer lawful requests from courts and public authorities.</li>
+  </ul>
+  <p>We do not sell or rent personal data. We do not use personal data for advertising, and ParaIQ contains no advertising or third-party tracking tools.</p>
+  <p><strong>6.5 Consent and legal grounds.</strong> We process personal data on the basis of your consent, given when you accept this policy and use ParaIQ, and for the legitimate uses the DPDP Act allows, such as complying with the law. You may withdraw your consent at any time by writing to us (clause 7.9). Withdrawal does not affect anything done before it, and, because some information is needed to run a licence, we may have to end the licence if you withdraw consent for it.</p>
+  <p><strong>6.6 Your duties as a firm.</strong> You must have a lawful ground, and give any required notice, before you enter your clients' personal data into ParaIQ. You must not enter data you have no right to use. You must give your staff only the access they need, and you must tell us promptly if you believe your sign-ins or data have been compromised.</p>
+  <p><strong>6.7 Sign-in records.</strong> ParaIQ keeps a small sign-in record in your browser so that you stay signed in until you sign out or it expires. It is used for no other purpose.</p>
+
+  <h2>7. Sharing, security and your rights</h2>
+  <p><strong>7.1 Who we share information with.</strong> We do not disclose personal data to anyone except:</p>
+  <ul>
+    <li>service providers who help us run ParaIQ and who are bound to keep the information confidential and secure and to use it only for our purposes;</li>
+    <li>courts, regulators and public authorities, where the law requires it or where we need it to establish, exercise or defend legal claims;</li>
+    <li>professional advisers, such as lawyers and auditors, who are bound by confidentiality; and</li>
+    <li>a successor to the business, if the Owner's rights in ParaIQ are lawfully transferred, on terms that protect your information at least as well as this policy.</li>
+  </ul>
+  <p><strong>7.2 Processing of material you submit.</strong> When you use a feature that works on information you supply, the material needed for that task is sent for processing to technology service providers that carry out the work. It is sent only for that task, over secured connections, and is not used by us for advertising or sold. We take care to use providers that offer suitable confidentiality and security commitments.</p>
+  <p><strong>7.3 Where information is kept.</strong> Your clients' information, records and documents are held in the data folder of your own installation, which is under your control. You are responsible for the security of your own computers, network, sign-ins and back-ups. Licence, device and usage information described in clause 6.2 is held on our systems. Some of our service providers may process information outside India, and we do so only to the extent the DPDP Act allows.</p>
+  <p><strong>7.4 How we protect information.</strong> We use reasonable security safeguards, as the law requires. They include protected storage of passwords, role-based access inside ParaIQ, secured transmission of information that leaves your computer, and restricting access to personal data on our side to people who need it. No system is completely secure, so we cannot promise absolute security, and you should keep your own computers and sign-ins protected.</p>
+  <p><strong>7.5 How long we keep information.</strong> We keep licence, device and usage information for as long as your licence lasts, and afterwards for as long as we need it to meet legal obligations, resolve disputes and enforce our rights, and then delete or anonymise it. Uninstalling ParaIQ does not delete your own client information from your data folder. It stays there until you delete it yourself.</p>
+  <p><strong>7.6 If something goes wrong.</strong> If personal data we are responsible for is breached, we will tell the Data Protection Board of India and the people affected, and will report the incident to CERT-In, in the way and within the time that the law requires.</p>
+  <p><strong>7.7 Your rights.</strong> Under the DPDP Act you may, subject to its conditions:</p>
+  <ul>
+    <li>ask for a summary of the personal data we hold about you and how it is processed, and who it has been shared with;</li>
+    <li>ask us to correct, complete or update it;</li>
+    <li>ask us to erase it, unless we need to keep it for a legal purpose;</li>
+    <li>withdraw your consent at any time;</li>
+    <li>have your grievance heard and resolved; and</li>
+    <li>name another person to exercise these rights for you if you die or become unable to do so.</li>
+  </ul>
+  <p>To use any of these rights, write to us at the address in clause 7.9. We will reply within the time the law requires and aim to do so within 30 days. If you are not satisfied with our reply, you may complain to the Data Protection Board of India once it is in place to hear such complaints.</p>
+  <p><strong>7.8 Children.</strong> ParaIQ is meant for professional use by adults and is not directed at anyone under 18. We do not knowingly collect a child's personal data. If you enter the personal data of a child, you must first obtain the verifiable consent of the child's parent or lawful guardian, as Section 9 of the DPDP Act requires.</p>
+  <p><strong>7.9 Grievance officer and contact.</strong> For any question, request or complaint about privacy or personal data, please write to our Grievance Officer:</p>
+  <p>Name: Kahan Shah<br>Email: paraiq.app@gmail.com<br>Phone: +91 79906 33015<br>Location: Ahmedabad, Gujarat, India</p>
+  <p><strong>7.10 Changes to this part.</strong> We may update Parts 6 and 7 from time to time. When we make a material change, we will tell you through ParaIQ or by email. If you keep using ParaIQ after the change takes effect, you accept the updated policy.</p>
+  <p class="crossnote">Copyright, licence terms and the rules on permitted use are on the <a href="#terms">Terms page</a>.</p>
+</main>
+
+<!-- Terms and copyright -->
+<main class="doc" id="view-terms" hidden>
+  <a class="back" href="#">← Back to ParaIQ</a>
+  <h1>Terms and copyright</h1>
+  <p class="meta">Parts 1 to 5 and 8 of the ParaIQ Copyright and Privacy Policy. Effective from 22 September 2026. Last updated 19 October 2026.</p>
+
+  <h2>1. About ParaIQ and this policy</h2>
+  <p>ParaIQ is the name of a proprietary computer software product, together with its name, logo, screens, documentation and all related materials. It is owned jointly by two individuals, Kahan Shah and Meet Patel, of Ahmedabad, Gujarat, India (together and each of them, the "Owner", "we" or "us"). References in this policy to the Owner mean both of them together and each of them.</p>
+  <p>This policy does two things. Parts 2 to 5 set out who owns ParaIQ, how it is protected under Indian copyright and related law, and what you may and may not do with it. Parts 6 and 7 explain how personal information is handled. Part 8 covers governing law and general terms.</p>
+  <p>In this policy, "ParaIQ" or the "Software" means the computer programme in object-code and every other form, every update, upgrade and new version of it, and all content, documentation, screens, layouts, templates and data compilations supplied with or through it. "You" means the individual or firm that has been granted a licence to use ParaIQ, and each person who uses it on that licence's behalf.</p>
+  <p>By installing, opening or using ParaIQ, you confirm that you have read and accepted this policy. If you do not accept it, you must not install or use ParaIQ.</p>
+
+  <h2>2. Copyright notice and ownership</h2>
+  <p><strong>© 2026 Kahan Shah and Meet Patel.</strong> ParaIQ and all of its parts are protected by copyright. All rights reserved.</p>
+  <p><strong>2.1 A protected work.</strong> ParaIQ is an original work and a "computer programme" within Section 2(ffc), and a literary work within Section 2(o), of the Copyright Act, 1957. Copyright in it arises automatically on creation under Section 13 of that Act and applies to the whole of the Software and to each part of it.</p>
+  <p><strong>2.2 What is protected.</strong> Copyright protects the way ParaIQ is expressed, in every form and at every stage, including:</p>
+  <ul>
+    <li>the source code and the object code;</li>
+    <li>the structure, sequence and organisation of the programme, its modules and its files;</li>
+    <li>screens, displays, layouts, menus, icons, graphics, text and other audio-visual and user-interface material;</li>
+    <li>databases, compilations, templates, forms, reports and content supplied with or through the Software;</li>
+    <li>all manuals, guides, help material, training material and other documentation; and</li>
+    <li>the name "ParaIQ" and its logo, as set out in Part 5.</li>
+  </ul>
+  <p><strong>2.3 Exclusive rights.</strong> Under Section 14(b) of the Act, the Owner alone has the right to reproduce ParaIQ; to issue copies of it to the public; to perform or communicate it to the public; to make adaptations and translations of it; and to sell, offer for sale, or give it on commercial rental. Nothing in this policy, in any licence or in the way ParaIQ is delivered gives any of these rights to you, except the limited licence in Part 3.</p>
+  <p><strong>2.4 Ownership.</strong> Copyright in ParaIQ is held by the Owner, being Kahan Shah and Meet Patel jointly. ParaIQ is licensed, not sold. Installing it or holding a copy transfers no ownership, copyright, patent right, trade secret or other right to you. Every right not expressly granted in writing is reserved.</p>
+  <p><strong>2.5 Updates and derived work.</strong> Every update, upgrade, patch, new version and adaptation of ParaIQ, whoever suggests it, is owned by the Owner and is covered by this policy. Any idea, suggestion or feedback you give about ParaIQ may be used by the Owner freely and without payment, and you assign to the Owner any rights you may have in it.</p>
+  <p><strong>2.6 Duration.</strong> Copyright in ParaIQ lasts for the full period provided by Section 22 of the Act, which is the life of the author and sixty years after, counted from the beginning of the calendar year following the author's death. Where copyright is owned by more than one person, the period is counted from the death of the last surviving author.</p>
+  <p><strong>2.7 Author's special rights.</strong> Independently of copyright, and even after any assignment, the author of ParaIQ has the right under Section 57 of the Act to claim authorship and to restrain, or claim damages for, any distortion, mutilation, modification or other act in relation to ParaIQ that would harm the author's honour or reputation.</p>
+  <p><strong>2.8 Protection outside India.</strong> Under Section 40 of the Act and the International Copyright Order, 1999, and under the laws of the countries concerned, ParaIQ is also entitled to protection in countries that are parties to the Berne Convention, the Universal Copyright Convention and the TRIPS Agreement.</p>
+  <p><strong>2.9 Confidential information.</strong> The source code, the internal construction of ParaIQ and any non-public information about it are confidential information of the Owner. You must keep them confidential and must not disclose or use them except as this policy allows. The Owner may enforce this under the law of breach of confidence and under contract, in addition to copyright.</p>
+
+  <h2>3. Licence and permitted use</h2>
+  <p><strong>3.1 The licence.</strong> Subject to this policy, the Owner grants you a limited, non-exclusive, non-transferable, non-sublicensable and revocable licence to install and use ParaIQ, in its object-code form only, for your own internal professional use.</p>
+  <p><strong>3.2 Period and territory.</strong> In keeping with Sections 19 and 30A of the Copyright Act, 1957, the licence lasts for the licence period recorded for you by the Owner, and applies in India only, unless the Owner agrees otherwise in writing. It ends automatically when that period ends or when the licence is ended under clause 3.6.</p>
+  <p><strong>3.3 Who may use it.</strong> The licence is personal to the firm or individual named in it. It covers only the number of users, installations and computers the Owner has agreed. Each person who uses ParaIQ must be authorised by you and must follow this policy. You are responsible for everything done under your sign-ins.</p>
+  <p><strong>3.4 Copies you may make.</strong> You may keep one back-up copy of the installation file purely as protection against loss, destruction or damage, in line with Section 52(1)(aa) of the Act. Every copy remains subject to this policy and must carry all notices.</p>
+  <p><strong>3.5 What the law itself permits.</strong> This policy does not take away any act that Section 52 of the Act permits a lawful possessor of a computer programme to do. Those acts are narrow. They include making a back-up copy, studying and testing how the programme functions in the course of using it for its supplied purpose, and obtaining information essential for interoperability with an independently created programme, but only where that information is not otherwise readily available. They do not allow you to copy, decompile, extract or share the code, and you should ask the Owner in writing before relying on any of them for anything beyond ordinary use.</p>
+  <p><strong>3.6 Suspension and ending.</strong> The Owner may suspend or end the licence, with or without notice, if the licence period ends, if a licence is paused or withdrawn by the Owner, if you breach this policy, or if the law requires it. While a licence is not valid, ParaIQ may not open. Suspension or ending of a licence never deletes your own information, and you remain bound by Parts 2, 4, 5 and 8 afterwards.</p>
+  <p><strong>3.7 Your own information.</strong> You keep all rights in the client information, documents and records that you put into ParaIQ. The Owner claims no ownership of them. The licence in clause 3.1 does not cover the Software, its content or its templates, and your ownership of your own information does not give you any right in them.</p>
+  <p><strong>3.8 Reports and outputs.</strong> You may use the documents and reports you prepare with ParaIQ for your own professional work and for your clients. You may not use them to build, train, test or improve a competing product, or to recreate any part of ParaIQ.</p>
+
+  <h2>4. Prohibited acts</h2>
+  <p>Except to the limited extent that Section 52 of the Copyright Act, 1957 expressly allows, or the Owner permits in writing in advance, you must not do, attempt, assist, encourage or allow anyone else to do, any of the following, by any means, including by automated tools or artificial-intelligence tools:</p>
+  <ol>
+    <li>Copy or reproduce ParaIQ or any part of it, in any form or medium, other than the back-up copy allowed by clause 3.4.</li>
+    <li>Distribute or make available ParaIQ to anyone else, whether by sale, gift, loan, rental, lease, licence, sublicence, upload, sharing of an installation file, remote access, or sharing of sign-in details.</li>
+    <li>Reverse engineer, decompile, disassemble or decode ParaIQ, or in any other way try to obtain, recover, rebuild, reconstruct or infer its source code, its structure, its algorithms or its internal workings.</li>
+    <li>Modify, adapt, translate or create derivative works from ParaIQ, or merge it with another product.</li>
+    <li>Circumvent, disable, tamper with or bypass any licence control, access control, lock, security feature or other technological protection measure in ParaIQ, or help anyone do so. This is an offence under Section 65A of the Act.</li>
+    <li>Remove, hide or alter any copyright notice, trade name, logo, licence information or other rights management information in or on ParaIQ, or distribute copies from which they have been removed. This is an offence under Section 65B of the Act.</li>
+    <li>Extract, scrape, harvest or copy the content, templates, forms, screens, layouts, databases or compilations of ParaIQ, in whole or in part, or record, photograph or publish them in order to reproduce them.</li>
+    <li>Use ParaIQ or its output to build, train, test, benchmark or improve any competing or similar software, service or tool, or to recreate any part of ParaIQ.</li>
+    <li>Disclose to any person who is not authorised by you under this policy any non-public information about ParaIQ, its construction or its performance.</li>
+    <li>Use an infringing copy. Knowingly use, or allow the use of, a copy of ParaIQ that was made, obtained or supplied without the Owner's licence. This is an offence under Section 63B of the Act.</li>
+    <li>Use ParaIQ unlawfully, in a way that breaches another person's rights, or in a way that interferes with the Owner's systems or other users.</li>
+  </ol>
+  <p>You must tell the Owner at once if you become aware of any unauthorised copying, use or disclosure of ParaIQ, and must give reasonable help to stop it. You are responsible for your own employees, contractors and agents, and any breach by them is your breach.</p>
+
+  <h2>5. Trade name, enforcement and remedies</h2>
+  <p><strong>5.1 Name and logo.</strong> "ParaIQ" and its logo are the proprietary trade name and marks of the Owner. You may not use them, or any name, logo or get-up that is the same as or confusingly similar to them, for any product, service, business, website, domain name or social-media handle without the Owner's written permission. The Owner reserves all rights under the Trade Marks Act, 1999 and under the law of passing off.</p>
+  <p><strong>5.2 Infringement is a civil wrong.</strong> Under Sections 51 and 55 of the Copyright Act, 1957, the Owner may sue for infringement and ask the court for an injunction, damages or an account of profits, and for the delivery up and destruction of infringing copies and of the plates, tools and equipment used to make them (Section 58). Indian courts also grant urgent and ex parte relief, including the appointment of a local commissioner to search, seize and inventory infringing material, and orders against infringers who are not yet identified.</p>
+  <p><strong>5.3 Infringement is also a criminal offence.</strong> Under the Act, a police officer of the rank of sub-inspector or above may seize infringing copies without a warrant (Section 64). Where a company commits an offence, the persons in charge of and responsible for its business may also be held liable (Section 69). The courts may impose penalties other than those shown below where the Act allows.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Section</th><th>Offence</th><th>Punishment</th></tr></thead>
+    <tbody>
+      <tr><td>63</td><td>Knowing infringement of copyright</td><td>Imprisonment of 6 months to 3 years and a fine of ₹50,000 to ₹2,00,000</td></tr>
+      <tr><td>63A</td><td>Second or later conviction</td><td>Imprisonment of 1 year to 3 years and a fine of ₹1,00,000 to ₹2,00,000</td></tr>
+      <tr><td>63B</td><td>Knowingly using an infringing copy of a computer programme</td><td>Imprisonment of 7 days to 3 years and a fine of ₹50,000 to ₹2,00,000</td></tr>
+      <tr><td>65A</td><td>Circumventing a technological protection measure</td><td>Imprisonment up to 2 years and a fine</td></tr>
+      <tr><td>65B</td><td>Removing or altering rights management information</td><td>Imprisonment up to 2 years and a fine</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>5.4 Other laws.</strong> Unauthorised access to, or copying, extraction or damage of, a computer, computer system or data is also actionable under Sections 43 and 66 of the Information Technology Act, 2000, which provide for compensation and for imprisonment and fines. These remedies are in addition to the Owner's rights under the Copyright Act, contract and the law of confidence.</p>
+  <p><strong>5.5 Injunction and costs.</strong> You accept that a breach of Part 2, 3 or 4 would cause the Owner harm that money alone cannot repair. The Owner may therefore ask any court for an injunction without first proving actual loss. You will pay the Owner's reasonable legal costs and expenses of enforcing this policy against you, and will compensate the Owner for any loss, claim or damage arising from your breach or from the breach of anyone you are responsible for.</p>
+  <p><strong>5.6 Checking compliance.</strong> On reasonable written notice, and in a way that does not unreasonably interrupt your work, the Owner may ask you to confirm in writing how many installations and users you have, and to show that ParaIQ is used only as this policy allows.</p>
+  <p><strong>5.7 Reporting a suspected infringement.</strong> If you know or suspect that ParaIQ is being copied, shared, imitated or misused, please write to the contact address in Part 8. Please include what you saw, where and when, and keep any evidence. Reports are treated as confidential.</p>
+  <p><strong>5.8 No waiver.</strong> The Owner's delay or failure to act on any breach does not waive that breach or any right. Any waiver is effective only if it is written and signed by the Owner.</p>
+
+  <h2>8. Governing law, general terms and contact</h2>
+  <p><strong>8.1 Governing law.</strong> This policy and any dispute arising from it or from the use of ParaIQ are governed by the laws of India.</p>
+  <p><strong>8.2 Courts.</strong> Subject to clause 8.3, the courts at Ahmedabad, Gujarat have exclusive jurisdiction over any dispute arising from this policy or from ParaIQ.</p>
+  <p><strong>8.3 Owner's right to sue elsewhere.</strong> Nothing in clause 8.2 limits the Owner's right to bring proceedings in any court that has jurisdiction under Section 62(2) of the Copyright Act, 1957 or under any other law, or to ask any court in India for urgent interim relief.</p>
+  <p><strong>8.4 The whole policy.</strong> This policy, together with any signed licence or other agreement between you and the Owner, is the whole understanding about ParaIQ between you and the Owner. If a signed agreement and this policy conflict, the signed agreement prevails to the extent of the conflict.</p>
+  <p><strong>8.5 If a part is invalid.</strong> If a court holds any part of this policy to be invalid or unenforceable, the rest of the policy continues in force, and the invalid part will be read down to the narrowest extent needed to make it enforceable.</p>
+  <p><strong>8.6 Transfer.</strong> The Owner may transfer its rights and duties under this policy to another person who lawfully acquires its rights in ParaIQ. You may not transfer yours without the Owner's written consent.</p>
+  <p><strong>8.7 What continues after the licence ends.</strong> Parts 2, 4, 5 and 8, clause 3.7, and any other provision that by its nature is meant to continue, remain in force after the licence ends.</p>
+  <p><strong>8.8 Changes.</strong> The Owner may update this policy from time to time. The latest version applies to your use of ParaIQ from the date it takes effect, and the date of the latest version is shown at the top of this page. If you do not accept a change, you must stop using ParaIQ.</p>
+  <p><strong>8.9 Contact.</strong> For licensing, permission requests, reports of infringement and all other matters:</p>
+  <p>Owners: Kahan Shah and Meet Patel<br>Location: Ahmedabad, Gujarat, India<br>Email: paraiq.app@gmail.com<br>Phone: +91 79906 33015</p>
+  <p class="crossnote">How personal information is handled (Parts 6 and 7) is on the <a href="#privacy">Privacy page</a>.</p>
+</main>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
